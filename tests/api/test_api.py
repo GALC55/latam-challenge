@@ -7,13 +7,13 @@ from challenge import app
 class TestBatchPipeline(unittest.TestCase):
     def setUp(self):
         self.client = TestClient(app)
-        
+
     def test_should_get_predict(self):
         data = {
             "flights": [
                 {
-                    "OPERA": "Aerolineas Argentinas", 
-                    "TIPOVUELO": "N", 
+                    "OPERA": "Aerolineas Argentinas",
+                    "TIPOVUELO": "N",
                     "MES": 3
                 }
             ]
@@ -36,7 +36,7 @@ class TestBatchPipeline(unittest.TestCase):
         }
         # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
         response = self.client.post("/predict", json=data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 422)
 
     def test_should_failed_unkown_column_2(self):
         data = {        
@@ -50,7 +50,7 @@ class TestBatchPipeline(unittest.TestCase):
         }
         # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))# change this line to the model of chosing
         response = self.client.post("/predict", json=data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 422)
     
     def test_should_failed_unkown_column_3(self):
         data = {        
@@ -64,4 +64,4 @@ class TestBatchPipeline(unittest.TestCase):
         }
         # when("xgboost.XGBClassifier").predict(ANY).thenReturn(np.array([0]))
         response = self.client.post("/predict", json=data)
-        self.assertEqual(response.status_code, 400)
+        self.assertEqual(response.status_code, 422)

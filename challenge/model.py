@@ -108,7 +108,7 @@ class DelayModel:
 
             plt.show()
 
-        dataDistributed()
+        #dataDistributed()
 
         from datetime import datetime
 
@@ -258,9 +258,9 @@ class DelayModel:
             plt.ylim(0, 7)
             plt.show()
 
-        delayRate()
+        #delayRate()
         # Determinar si se debe retornar el DataFrame con o sin objetivo
-        training_data = shuffle(data[['OPERA', 'MES', 'TIPOVUELO', 'SIGLADES', 'DIANOM', 'delay']], random_state=111)
+        training_data = shuffle(data[['OPERA', 'MES', 'TIPOVUELO','delay']], random_state=111)
         x = pd.concat([
             pd.get_dummies(training_data['OPERA'], prefix='OPERA'),
             pd.get_dummies(training_data['TIPOVUELO'], prefix='TIPOVUELO'),
@@ -278,6 +278,7 @@ class DelayModel:
         "OPERA_Sky Airline",
         "OPERA_Copa Air"]
         x= x[topFeatures]
+        print(x.head())
         if target_column:
             y = training_data[[target_column]]
             return x, y
@@ -299,6 +300,7 @@ class DelayModel:
 
         self._model = xgb.XGBClassifier(random_state=1, learning_rate=0.01, scale_pos_weight = scale)
         self._model.fit(X_train, y_train)
+        self._model.save_model("modelo.xgb")
         return self._model
 
     def predict(
@@ -308,4 +310,3 @@ class DelayModel:
         pred = self._model.predict(features)
         print(pred)
         return pred.tolist()
-
