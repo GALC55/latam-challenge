@@ -75,8 +75,9 @@ class TestModel(unittest.TestCase):
             target=target
         )
 
-        predicted_target = self.model._model.predict(
-            features_validation
+        #aqui estaba llamando mal a la funcion de predict y por ende no funcionaba
+        predicted_target = self.model.predict(
+            features=features_validation
         )
 
         report = classification_report(target_validation, predicted_target, output_dict=True)
@@ -93,7 +94,9 @@ class TestModel(unittest.TestCase):
         features = self.model.preprocess(
             data=self.data
         )
-
+        ##para usar el predict hace falta si o si hacer un fit antes por ende añadi la funcion de .fit a este test para que pueda funcionar bien
+        x,y = self.model.preprocess(data=self.data, target_column="delay")
+        self.model.fit(features=x, target=y)
         predicted_targets = self.model.predict(
             features=features
         )
