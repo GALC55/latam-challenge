@@ -12,6 +12,7 @@ class FlightData(BaseModel):
     TIPOVUELO: str
     MES: int
 
+
     @validator('OPERA')
     def validate_opera(cls, value):
         valid_opera = ["Aerolineas Argentinas", "Grupo LATAM", "Sky Airline", "Copa Air", "Latin American Wings"]
@@ -100,7 +101,18 @@ async def post_predict(request: FlightRequest):
 
         return {"predict": predictions.tolist()}
 
+
     except ValidationError as e:
+
+        # Maneja la validación de datos y devuelve un error 400 si ocurre una excepción de validación
+
         raise fastapi.HTTPException(status_code=400, detail=str(e))
+
+
+    except Exception as e:
+
+        # Maneja cualquier otra excepción y devuelve un error 400 genérico
+
+        raise fastapi.HTTPException(status_code=400, detail="Error en la solicitud.")
     except Exception as e:
         raise fastapi.HTTPException(status_code=500, detail=str(e))
