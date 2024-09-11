@@ -50,7 +50,7 @@ app.add_middleware(
 
 # Cargar el modelo entrenado y el transformador
 model = xgb.XGBClassifier()
-model.load_model("C:\Proyectos navvi\challenge latam\latam-challenge\challenge\modelo.xgb")
+model.load_model("./modelo.xgb")
 
 
 @app.get("/health", status_code=200)

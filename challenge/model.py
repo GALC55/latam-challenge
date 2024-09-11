@@ -165,7 +165,6 @@ class DelayModel:
 
         threshold_in_minutes = 15
         data['delay'] = np.where(data['min_diff'] > threshold_in_minutes, 1, 0)
-        data.to_csv("hola.csv")
 
         def delayRate():
             def get_rate_from_column(data, column):

@@ -1,0 +1,52 @@
+ # Ignorar archivos y carpetas innecesarios para la imagen Docker
+.venv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.db
+*.sqlite3
+*.log
+
+# Ignorar carpetas del sistema
+.MACOSX
+
+# Ignorar archivos y carpetas de Git
+.git
+.gitignore
+
+# Ignorar archivos de configuración del IDE/editor
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Ignorar carpetas y archivos innecesarios de pytest o coverage
+.pytest_cache/
+.coverage
+.cache/
+
+# Ignorar archivos de informes y cachés
+reports/
+data/
+
+# Ignorar archivos comprimidos
+*.zip
+*.tar
+*.gz
+*.rar
+
+# Ignorar los archivos de exploración de Jupyter
+*.ipynb_checkpoints/
+
+# Ignorar el archivo de exploración Jupyter si no es necesario en el contenedor
+exploration.ipynb
+
+# Ignorar tests (si no se ejecutarán en el contenedor)
+tests/
+
+# Ignorar Dockerfile (no se necesita en el contenedor final)
+Dockerfile
+
+# Ignorar Makefile si no es necesario en el contenedor
+Makefile
