@@ -11,6 +11,7 @@ La elección de XGBoost sobre regresión logística se justifica por su capacida
    - Se instaló el paquete `httpx`.
    - Se actualizó el paquete `anyio`.
    - Se actualizó el paquete `Flask`.
+   - Se instalo el paquete `loggin` para el manejo de log de errores en la api
 3. Se realizó la implementación del CI/CD en el cual el CI se ejecuta al hacer push a cualquier de las 2 ramas para ejecutar los test del modelo y api. El CD se ejecuta solo al hacer push a main ya que despliega el modelo en GCP.
 4. El DockerFile se llenó con toda la información y los paquetes necesarios para la ejecución de la API y el .dockerignore tiene todo lo no estrictamente necesario para poder ahorrar espacio a la hora de hacer build a la imagen.
 

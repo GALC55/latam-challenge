@@ -1,37 +1,29 @@
 import fastapi
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, validator, ValidationError
+from pydantic import BaseModel, validator, ValidationError, conint
 from typing import List
 import xgboost as xgb
 import pandas as pd
-
+import logging
+from enum import Enum
+logger = logging.getLogger(__name__)
 
 # Definir el esquema de los datos de vuelo
+class OperaEnum(str, Enum):
+    Aerolineas_Argentinas = "Aerolineas Argentinas"
+    Grupo_LATAM = "Grupo LATAM"
+    Sky_Airline = "Sky Airline"
+    Copa_Air = "Copa Air"
+    Latin_American_Wings = "Latin American Wings"
+
+class TipoVueloEnum(str, Enum):
+    I = "I"
+    N = "N"
+
 class FlightData(BaseModel):
-    OPERA: str
-    TIPOVUELO: str
-    MES: int
-
-
-    @validator('OPERA')
-    def validate_opera(cls, value):
-        valid_opera = ["Aerolineas Argentinas", "Grupo LATAM", "Sky Airline", "Copa Air", "Latin American Wings"]
-        if value not in valid_opera:
-            raise ValueError(f'Operador desconocido: {value}')
-        return value
-
-    @validator('TIPOVUELO')
-    def validate_tipovuelo(cls, value):
-        if value not in ["I", "N"]:
-            raise ValueError(f'Tipo de vuelo desconocido: {value}')
-        return value
-
-    @validator('MES')
-    def validate_mes(cls, value):
-        if not 1 <= value <= 12:
-            raise ValueError(f'Mes fuera de rango: {value}')
-        return value
-
+    OPERA: OperaEnum
+    TIPOVUELO: TipoVueloEnum
+    MES: conint(ge=1, le=12)  # MES entre 1 y 12
 
 class FlightRequest(BaseModel):
     flights: List[FlightData]
@@ -48,7 +40,7 @@ app.add_middleware(
     allow_headers=["*"],  # Permitir todos los encabezados
 )
 
-# Cargar el modelo entrenado y el transformador
+# Cargar el modelo entrenado
 model = xgb.XGBClassifier()
 model.load_model("./modelo.xgb")
 
@@ -58,8 +50,9 @@ async def get_health() -> dict:
     return {"status": "OK"}
 
 
-@app.post("/predict", status_code=200)
+@app.post("/predict")
 async def post_predict(request: FlightRequest):
+    # Transformación de los datos para que sean iguales a los del entrenamiento y en el mismo orden
     try:
         data = pd.DataFrame([{
             "OPERA": flight.OPERA,
@@ -74,7 +67,7 @@ async def post_predict(request: FlightRequest):
             axis=1
         )
 
-        # Las características que utilizaste durante el entrenamiento
+        # Características utilizadas durante el entrenamiento
         topFeatures = [
             "OPERA_Latin American Wings",
             "MES_7",
@@ -88,31 +81,20 @@ async def post_predict(request: FlightRequest):
             "OPERA_Copa Air"
         ]
 
-        # Asegurarse de que todas las columnas necesarias estén en los datos de predicción
-        # Si falta alguna columna, se agrega con valor 0
-        for col in topFeatures:
-            if col not in x_pred.columns:
-                x_pred[col] = False
+        # Reindexación para asegurar que todas las columnas necesarias estén presentes
+        x_pred = x_pred.reindex(columns=topFeatures, fill_value=0)
 
-        # Asegurarse de que las columnas estén en el mismo orden que en el conjunto de entrenamiento
-        x_pred = x_pred[topFeatures]
-
+        # Asegurar que las columnas estén en el mismo orden que en el conjunto de entrenamiento
         predictions = model.predict(x_pred)
 
         return {"predict": predictions.tolist()}
 
-
     except ValidationError as e:
-
-        # Maneja la validación de datos y devuelve un error 400 si ocurre una excepción de validación
-
+        # Manejo de la validación de datos (error 400)
         raise fastapi.HTTPException(status_code=400, detail=str(e))
 
-
     except Exception as e:
+        # Logging de errores inesperados y devolver error 500
+        logger.error(f"Error inesperado: {str(e)}")
+        raise fastapi.HTTPException(status_code=500, detail="Error interno en la solicitud.")
 
-        # Maneja cualquier otra excepción y devuelve un error 400 genérico
-
-        raise fastapi.HTTPException(status_code=400, detail="Error en la solicitud.")
-    except Exception as e:
-        raise fastapi.HTTPException(status_code=500, detail=str(e))
