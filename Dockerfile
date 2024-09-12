@@ -1,7 +1,7 @@
 # syntax=docker/dockerfile:1.2
 # put you docker configuration here
 # Usa una imagen base de Python
-FROM python:3.8
+FROM python:3.11
 
 # Establece el directorio de trabajo
 WORKDIR /app
