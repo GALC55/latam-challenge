@@ -1,5 +1,5 @@
 from locust import HttpUser, task
-
+#tuve un error con jinja2 asi que actualice ese modulo y tambien el modulo de flask para poder correr el test de estres
 class StressUser(HttpUser):
     
     @task

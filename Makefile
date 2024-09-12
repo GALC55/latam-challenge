@@ -23,7 +23,7 @@ install:		## Install dependencies
 	pip install -r requirements-test.txt
 	pip install -r requirements.txt
 
-STRESS_URL = http://127.0.0.1:8000 
+STRESS_URL = https://latam-challenge-178163863703.us-central1.run.app
 .PHONY: stress-test
 stress-test:
 	locust -f tests/stress/api_stress.py --print-stats --html reports/stress-test.html --run-time 60s --headless --users 100 --spawn-rate 1 -H $(STRESS_URL)
