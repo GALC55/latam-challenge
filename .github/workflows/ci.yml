@@ -30,6 +30,7 @@ jobs:
         source .venv/bin/activate
         make install
         pip install --upgrade Flask
+        pip install --upgrade anyio
 
     # Ejecutar tests del modelo
     - name: Run model tests
