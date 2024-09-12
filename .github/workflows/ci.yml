@@ -30,6 +30,7 @@ jobs:
         source .venv/bin/activate
         make install
 
+
     # Ejecutar tests del modelo
     - name: Run model tests
       run: |
