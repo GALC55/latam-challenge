@@ -20,6 +20,7 @@ class DelayModel:
             target_column: str = None
     ) -> Union[Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame]:
 
+        # Funcion para los graficos del data Distributed
         def dataDistributed():
             flights_by_airline = data['OPERA'].value_counts()
             plt.figure(figsize=(10, 2))
@@ -157,6 +158,7 @@ class DelayModel:
         threshold_in_minutes = 15
         data['delay'] = np.where(data['min_diff'] > threshold_in_minutes, 1, 0)
 
+        #Funcion para los graficos del delay rate
         def delayRate():
             def get_rate_from_column(data, column):
                 delays = {}
@@ -249,6 +251,7 @@ class DelayModel:
             plt.show()
 
         #delayRate()
+
         # Determinar si se debe retornar el DataFrame con o sin objetivo
         training_data = shuffle(data[['OPERA', 'MES', 'TIPOVUELO','delay']], random_state=111)
         x = pd.concat([
@@ -290,7 +293,7 @@ class DelayModel:
 
         self._model = xgb.XGBClassifier(random_state=1, learning_rate=0.01, scale_pos_weight = scale)
         self._model.fit(X_train, y_train)
-        self._model.save_model("modelo.xgb")
+        #linea para poder guardar el modelo en un archivo .xgb self._model.save_model("modelo.xgb")
         return self._model
 
     def predict(

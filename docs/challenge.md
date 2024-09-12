@@ -1,75 +1,40 @@
-Primero resolvi ciertos problemas con los parametros de los sns.barplot, a los cuales les falta definir que variable era X y cual era Y 
-Al momento de hacer los test vi ciertos errores de modulos por lo cual instale httpx, actualice anyio y actualice flask.
-lista final de todos los paquetes que se usaron:
-anyio==4.4.0
-asgiref==3.8.1
-atomicwrites==1.4.1
-attrs==24.2.0
-blinker==1.8.2
-Brotli==1.1.0
-certifi==2024.8.30
-cffi==1.17.1
-charset-normalizer==3.3.2
-click==8.1.7
-colorama==0.4.6
-ConfigArgParse==1.7
-contourpy==1.3.0
-coverage==5.5
-cycler==0.12.1
+# Proyecto de Modelado y API con FastAPI
+
+Este proyecto consta de la transcripción y ajuste de un modelo desde un archivo `.ipynb` a un archivo `.py`, la creación de una API con **FastAPI**, y su despliegue en un proveedor en la nube. Durante el desarrollo, se realizaron diversas optimizaciones y actualizaciones para asegurar el correcto funcionamiento de los tests y el despliegue.
+
+## Eleccion del modelo
+La elección de XGBoost sobre regresión logística se justifica por su capacidad para capturar relaciones no lineales entre las variables y el objetivo, lo que lo hace más adecuado para datos complejos. Además, maneja features categóricas mejor, especialmente cuando se combinan con codificación adecuada como One-Hot Encoding o Label Encoding y maneja de manera natural los missing values y puede ajustarse automáticamente a esos datos sin necesidad de imputarlos, lo cual es útil en escenarios con datos faltantes o ruidosos. Estas características hacen que XGBoost sea una opción más robusta y eficiente para modelos donde las relaciones entre las variables son más complejas. Ademas, se eligio el modelo con el balance de pesos debido a que había un mayor porcentaje de una variable que de la otra, lo que hacia que el modelo sea preciso solo para predecir una de ellas, con el balance se permite que el modelo aprenda de manera mas equilibrada a predecir ambas.
+## Problemas Resueltos
+
+1. Se resolvieron problemas con los parámetros de los gráficos `sns.barplot`, donde no se había definido correctamente qué variable era el eje **X** y cuál era el eje **Y**.
+2. Durante la ejecución de los tests, se encontraron errores relacionados con módulos faltantes, por lo que se realizaron las siguientes actualizaciones:
+   - Se instaló el paquete `httpx`.
+   - Se actualizó el paquete `anyio`.
+   - Se actualizó el paquete `Flask`.
+3. Se realizó la implementación del CI/CD en el cual el CI se ejecuta al hacer push a cualquier de las 2 ramas para ejecutar los test del modelo y api. El CD se ejecuta solo al hacer push a main ya que despliega el modelo en GCP.
+4. El DockerFile se llenó con toda la información y los paquetes necesarios para la ejecución de la API y el .dockerignore tiene todo lo no estrictamente necesario para poder ahorrar espacio a la hora de hacer build a la imagen.
+
+## Paquetes Utilizados
+
+A continuación se lista la versión final de todos los paquetes utilizados en este proyecto:
+
+```bash
 fastapi==0.114.0
 Flask==3.0.3
 Flask-BasicAuth==0.2.0
 Flask-Cors==5.0.0
-fonttools==4.53.1
-gevent==24.2.1
-geventhttpclient==2.3.1
-greenlet==3.0.3
-h11==0.14.0
-httpcore==1.0.5
 httpx==0.27.2
-idna==3.8
-iniconfig==2.0.0
-itsdangerous==2.2.0
-Jinja2==3.1.4
-joblib==1.4.2
-kiwisolver==1.4.7
 locust==1.6.0
-MarkupSafe==2.1.5
 matplotlib==3.7.5
 mockito==1.2.2
-msgpack==1.1.0
 numpy==1.26.4
-packaging==24.1
 pandas==2.2.2
-pillow==10.4.0
-pluggy==1.5.0
-psutil==6.0.0
-py==1.11.0
-pycparser==2.22
-pydantic==1.10.18
-pyparsing==3.1.4
 pytest==6.2.5
 pytest-cov==2.12.1
-python-dateutil==2.9.0.post0
-pytz==2024.1
-pywin32==306
-pyzmq==26.2.0
 requests==2.32.3
 scikit-learn==1.3.2
 scipy==1.14.1
 seaborn==0.12.2
-setuptools==74.1.2
-six==1.16.0
-sniffio==1.3.1
-starlette==0.38.5
-threadpoolctl==3.5.0
-toml==0.10.2
-typing_extensions==4.12.2
-tzdata==2024.1
-urllib3==2.2.2
 uvicorn==0.15.0
-Werkzeug==3.0.4
 xgboost==2.1.1
-zope.event==5.0
-zope.interface==7.0.3
 
