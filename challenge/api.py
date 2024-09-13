@@ -8,7 +8,7 @@ import logging
 from enum import Enum
 logger = logging.getLogger(__name__)
 
-# Definir el esquema de los datos de vuelo
+# Definir el esquema de los datos
 class OperaEnum(str, Enum):
     Aerolineas_Argentinas = "Aerolineas Argentinas"
     Grupo_LATAM = "Grupo LATAM"
@@ -31,7 +31,6 @@ class FlightRequest(BaseModel):
 
 app = fastapi.FastAPI()
 
-# Configurar CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],  # Permitir todos los orígenes (ajusta según tus necesidades)
@@ -67,7 +66,6 @@ async def post_predict(request: FlightRequest):
             axis=1
         )
 
-        # Características utilizadas durante el entrenamiento
         topFeatures = [
             "OPERA_Latin American Wings",
             "MES_7",
@@ -81,20 +79,17 @@ async def post_predict(request: FlightRequest):
             "OPERA_Copa Air"
         ]
 
-        # Reindexación para asegurar que todas las columnas necesarias estén presentes
+        # Llenar los valores de las columnas faltantes
         x_pred = x_pred.reindex(columns=topFeatures, fill_value=0)
 
-        # Asegurar que las columnas estén en el mismo orden que en el conjunto de entrenamiento
         predictions = model.predict(x_pred)
 
         return {"predict": predictions.tolist()}
 
     except ValidationError as e:
-        # Manejo de la validación de datos (error 400)
         raise fastapi.HTTPException(status_code=400, detail=str(e))
 
     except Exception as e:
-        # Logging de errores inesperados y devolver error 500
         logger.error(f"Error inesperado: {str(e)}")
         raise fastapi.HTTPException(status_code=500, detail="Error interno en la solicitud.")
 

@@ -15,27 +15,4 @@ La elección de XGBoost sobre regresión logística se justifica por su capacida
 4. Se realizó la implementación del CI/CD en el cual el CI se ejecuta al hacer push a cualquier de las 2 ramas para ejecutar los test del modelo y api. El CD se ejecuta solo al hacer push a main ya que despliega el modelo en GCP.
 5. El DockerFile se llenó con toda la información y los paquetes necesarios para la ejecución de la API y el .dockerignore tiene todo lo no estrictamente necesario para poder ahorrar espacio a la hora de hacer build a la imagen.
 
-## Paquetes Utilizados
-
-A continuación se lista la versión final de todos los paquetes utilizados en este proyecto:
-
-```bash
-fastapi==0.114.0
-Flask==3.0.3
-Flask-BasicAuth==0.2.0
-Flask-Cors==5.0.0
-httpx==0.27.2
-locust==1.6.0
-matplotlib==3.7.5
-mockito==1.2.2
-numpy==1.26.4
-pandas==2.2.2
-pytest==6.2.5
-pytest-cov==2.12.1
-requests==2.32.3
-scikit-learn==1.3.2
-scipy==1.14.1
-seaborn==0.12.2
-uvicorn==0.15.0
-xgboost==2.1.1
 

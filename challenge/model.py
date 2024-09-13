@@ -21,7 +21,7 @@ class DelayModel:
             target_column: str = None
     ) -> Union[Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame]:
         """
-        Preprocesa los datos, añadiendo columnas calculadas como 'high_season',
+        añade columnas calculadas como 'high_season',
         'period_day', 'min_diff', y 'delay'. También codifica las variables categóricas
         necesarias para el modelo.
 
@@ -30,19 +30,19 @@ class DelayModel:
         target_column (str): Nombre de la columna objetivo.
 
         Returns:
-        Union[Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame]: Features (y target si se especifica).
+        Union[Tuple[pd.DataFrame, pd.DataFrame], pd.DataFrame]: Features.
         """
         try:
-            # Crear nuevas columnas calculadas
+            # nuevas columnas calculadas
             data['high_season'] = data['Fecha-I'].apply(self._is_high_season)
             data['period_day'] = data['Fecha-I'].apply(self._get_period_day)
             data['min_diff'] = data.apply(self._get_min_diff, axis=1)
 
-            # Crear columna de delay basada en un umbral de 15 minutos
+            # columna de delay basada en un umbral de 15 minutos
             threshold_in_minutes = 15
             data['delay'] = np.where(data['min_diff'] > threshold_in_minutes, 1, 0)
 
-            # Preparar los datos para el modelo
+
             training_data = shuffle(data[['OPERA', 'MES', 'TIPOVUELO', 'delay']], random_state=111)
             x = pd.concat([
                 pd.get_dummies(training_data['OPERA'], prefix='OPERA'),
@@ -51,7 +51,6 @@ class DelayModel:
                 axis=1
             )
 
-            # Seleccionar las mejores características
             top_features = [
                 "OPERA_Latin American Wings", "MES_7", "MES_10", "OPERA_Grupo LATAM", "MES_12",
                 "TIPOVUELO_I", "MES_4", "MES_11", "OPERA_Sky Airline", "OPERA_Copa Air"

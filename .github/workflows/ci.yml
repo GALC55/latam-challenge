@@ -44,8 +44,8 @@ jobs:
         source .venv/bin/activate
         make api-test
 
-#    # Ejecutar tests de estrés
-#    - name: Run stress tests
-#      run: |
-#        source .venv/bin/activate
-#        make stress-test
+    # Ejecutar tests de estrés
+    - name: Run stress tests
+      run: |
+        source .venv/bin/activate
+        make stress-test

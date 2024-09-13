@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=emulateIE7" />
-    <title>Coverage for challenge\api.py: 71%</title>
+    <title>Coverage for challenge\api.py: 87%</title>
     <link rel="icon" sizes="32x32" href="favicon_32.png">
     <link rel="stylesheet" href="style.css" type="text/css">
     <script type="text/javascript" src="jquery.min.js"></script>
@@ -18,13 +18,13 @@
 <div id="header">
     <div class="content">
         <h1>Coverage for <b>challenge\api.py</b> :
-            <span class="pc_cov">71%</span>
+            <span class="pc_cov">87%</span>
         </h1>
         <img id="keyboard_icon" src="keybd_closed.png" alt="Show keyboard shortcuts" />
         <h2 class="stats">
             45 statements &nbsp;
-            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">32 run</button>
-            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">13 missing</button>
+            <button type="button" class="run shortkey_r button_toggle_run" title="Toggle lines run">39 run</button>
+            <button type="button" class="mis show_mis shortkey_m button_toggle_mis" title="Toggle lines missing">6 missing</button>
             <button type="button" class="exc show_exc shortkey_x button_toggle_exc" title="Toggle lines excluded">0 excluded</button>
         </h2>
     </div>
@@ -107,14 +107,14 @@
     <p id="t53" class="run"><span class="n"><a href="#t53">53</a></span><span class="t"><span class="op">@</span><span class="nam">app</span><span class="op">.</span><span class="nam">post</span><span class="op">(</span><span class="str">"/predict"</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t54" class="run"><span class="n"><a href="#t54">54</a></span><span class="t"><span class="key">async</span> <span class="key">def</span> <span class="nam">post_predict</span><span class="op">(</span><span class="nam">request</span><span class="op">:</span> <span class="nam">FlightRequest</span><span class="op">)</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t55" class="pln"><span class="n"><a href="#t55">55</a></span><span class="t">    <span class="com"># Transformaci&#243;n de los datos para que sean iguales a los del entrenamiento y en el mismo orden</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t56" class="mis show_mis"><span class="n"><a href="#t56">56</a></span><span class="t">    <span class="key">try</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t57" class="mis show_mis"><span class="n"><a href="#t57">57</a></span><span class="t">        <span class="nam">data</span> <span class="op">=</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">DataFrame</span><span class="op">(</span><span class="op">[</span><span class="op">{</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t56" class="run"><span class="n"><a href="#t56">56</a></span><span class="t">    <span class="key">try</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t57" class="run"><span class="n"><a href="#t57">57</a></span><span class="t">        <span class="nam">data</span> <span class="op">=</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">DataFrame</span><span class="op">(</span><span class="op">[</span><span class="op">{</span>&nbsp;</span><span class="r"></span></p>
     <p id="t58" class="pln"><span class="n"><a href="#t58">58</a></span><span class="t">            <span class="str">"OPERA"</span><span class="op">:</span> <span class="nam">flight</span><span class="op">.</span><span class="nam">OPERA</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t59" class="pln"><span class="n"><a href="#t59">59</a></span><span class="t">            <span class="str">"TIPOVUELO"</span><span class="op">:</span> <span class="nam">flight</span><span class="op">.</span><span class="nam">TIPOVUELO</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t60" class="pln"><span class="n"><a href="#t60">60</a></span><span class="t">            <span class="str">"MES"</span><span class="op">:</span> <span class="nam">flight</span><span class="op">.</span><span class="nam">MES</span>&nbsp;</span><span class="r"></span></p>
     <p id="t61" class="pln"><span class="n"><a href="#t61">61</a></span><span class="t">        <span class="op">}</span> <span class="key">for</span> <span class="nam">flight</span> <span class="key">in</span> <span class="nam">request</span><span class="op">.</span><span class="nam">flights</span><span class="op">]</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t62" class="pln"><span class="n"><a href="#t62">62</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t63" class="mis show_mis"><span class="n"><a href="#t63">63</a></span><span class="t">        <span class="nam">x_pred</span> <span class="op">=</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">concat</span><span class="op">(</span><span class="op">[</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t63" class="run"><span class="n"><a href="#t63">63</a></span><span class="t">        <span class="nam">x_pred</span> <span class="op">=</span> <span class="nam">pd</span><span class="op">.</span><span class="nam">concat</span><span class="op">(</span><span class="op">[</span>&nbsp;</span><span class="r"></span></p>
     <p id="t64" class="pln"><span class="n"><a href="#t64">64</a></span><span class="t">            <span class="nam">pd</span><span class="op">.</span><span class="nam">get_dummies</span><span class="op">(</span><span class="nam">data</span><span class="op">[</span><span class="str">'OPERA'</span><span class="op">]</span><span class="op">,</span> <span class="nam">prefix</span><span class="op">=</span><span class="str">'OPERA'</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t65" class="pln"><span class="n"><a href="#t65">65</a></span><span class="t">            <span class="nam">pd</span><span class="op">.</span><span class="nam">get_dummies</span><span class="op">(</span><span class="nam">data</span><span class="op">[</span><span class="str">'TIPOVUELO'</span><span class="op">]</span><span class="op">,</span> <span class="nam">prefix</span><span class="op">=</span><span class="str">'TIPOVUELO'</span><span class="op">)</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t66" class="pln"><span class="n"><a href="#t66">66</a></span><span class="t">            <span class="nam">pd</span><span class="op">.</span><span class="nam">get_dummies</span><span class="op">(</span><span class="nam">data</span><span class="op">[</span><span class="str">'MES'</span><span class="op">]</span><span class="op">,</span> <span class="nam">prefix</span><span class="op">=</span><span class="str">'MES'</span><span class="op">)</span><span class="op">]</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -122,7 +122,7 @@
     <p id="t68" class="pln"><span class="n"><a href="#t68">68</a></span><span class="t">        <span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t69" class="pln"><span class="n"><a href="#t69">69</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t70" class="pln"><span class="n"><a href="#t70">70</a></span><span class="t">        <span class="com"># Caracter&#237;sticas utilizadas durante el entrenamiento</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t71" class="mis show_mis"><span class="n"><a href="#t71">71</a></span><span class="t">        <span class="nam">topFeatures</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t71" class="run"><span class="n"><a href="#t71">71</a></span><span class="t">        <span class="nam">topFeatures</span> <span class="op">=</span> <span class="op">[</span>&nbsp;</span><span class="r"></span></p>
     <p id="t72" class="pln"><span class="n"><a href="#t72">72</a></span><span class="t">            <span class="str">"OPERA_Latin American Wings"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t73" class="pln"><span class="n"><a href="#t73">73</a></span><span class="t">            <span class="str">"MES_7"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
     <p id="t74" class="pln"><span class="n"><a href="#t74">74</a></span><span class="t">            <span class="str">"MES_10"</span><span class="op">,</span>&nbsp;</span><span class="r"></span></p>
@@ -136,12 +136,12 @@
     <p id="t82" class="pln"><span class="n"><a href="#t82">82</a></span><span class="t">        <span class="op">]</span>&nbsp;</span><span class="r"></span></p>
     <p id="t83" class="pln"><span class="n"><a href="#t83">83</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t84" class="pln"><span class="n"><a href="#t84">84</a></span><span class="t">        <span class="com"># Reindexaci&#243;n para asegurar que todas las columnas necesarias est&#233;n presentes</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t85" class="mis show_mis"><span class="n"><a href="#t85">85</a></span><span class="t">        <span class="nam">x_pred</span> <span class="op">=</span> <span class="nam">x_pred</span><span class="op">.</span><span class="nam">reindex</span><span class="op">(</span><span class="nam">columns</span><span class="op">=</span><span class="nam">topFeatures</span><span class="op">,</span> <span class="nam">fill_value</span><span class="op">=</span><span class="num">0</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t85" class="run"><span class="n"><a href="#t85">85</a></span><span class="t">        <span class="nam">x_pred</span> <span class="op">=</span> <span class="nam">x_pred</span><span class="op">.</span><span class="nam">reindex</span><span class="op">(</span><span class="nam">columns</span><span class="op">=</span><span class="nam">topFeatures</span><span class="op">,</span> <span class="nam">fill_value</span><span class="op">=</span><span class="num">0</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t86" class="pln"><span class="n"><a href="#t86">86</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t87" class="pln"><span class="n"><a href="#t87">87</a></span><span class="t">        <span class="com"># Asegurar que las columnas est&#233;n en el mismo orden que en el conjunto de entrenamiento</span>&nbsp;</span><span class="r"></span></p>
-    <p id="t88" class="mis show_mis"><span class="n"><a href="#t88">88</a></span><span class="t">        <span class="nam">predictions</span> <span class="op">=</span> <span class="nam">model</span><span class="op">.</span><span class="nam">predict</span><span class="op">(</span><span class="nam">x_pred</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t88" class="run"><span class="n"><a href="#t88">88</a></span><span class="t">        <span class="nam">predictions</span> <span class="op">=</span> <span class="nam">model</span><span class="op">.</span><span class="nam">predict</span><span class="op">(</span><span class="nam">x_pred</span><span class="op">)</span>&nbsp;</span><span class="r"></span></p>
     <p id="t89" class="pln"><span class="n"><a href="#t89">89</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
-    <p id="t90" class="mis show_mis"><span class="n"><a href="#t90">90</a></span><span class="t">        <span class="key">return</span> <span class="op">{</span><span class="str">"predict"</span><span class="op">:</span> <span class="nam">predictions</span><span class="op">.</span><span class="nam">tolist</span><span class="op">(</span><span class="op">)</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
+    <p id="t90" class="run"><span class="n"><a href="#t90">90</a></span><span class="t">        <span class="key">return</span> <span class="op">{</span><span class="str">"predict"</span><span class="op">:</span> <span class="nam">predictions</span><span class="op">.</span><span class="nam">tolist</span><span class="op">(</span><span class="op">)</span><span class="op">}</span>&nbsp;</span><span class="r"></span></p>
     <p id="t91" class="pln"><span class="n"><a href="#t91">91</a></span><span class="t">&nbsp;</span><span class="r"></span></p>
     <p id="t92" class="mis show_mis"><span class="n"><a href="#t92">92</a></span><span class="t">    <span class="key">except</span> <span class="nam">ValidationError</span> <span class="key">as</span> <span class="nam">e</span><span class="op">:</span>&nbsp;</span><span class="r"></span></p>
     <p id="t93" class="pln"><span class="n"><a href="#t93">93</a></span><span class="t">        <span class="com"># Manejo de la validaci&#243;n de datos (error 400)</span>&nbsp;</span><span class="r"></span></p>
@@ -157,7 +157,7 @@
     <div class="content">
         <p>
             <a class="nav" href="index.html">&#xab; index</a> &nbsp; &nbsp; <a class="nav" href="https://coverage.readthedocs.io">coverage.py v5.5</a>,
-            created at 2024-09-12 15:31 -0500
+            created at 2024-09-12 20:38 -0500
         </p>
     </div>
 </div>
